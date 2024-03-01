@@ -1,24 +1,25 @@
 import os
+import random
 import hashlib
-
-salt = os.urandom(32)
-
+from data import db_session
+from data.users import User
 
 def get_hash_password(login, password):
-    salt = os.urandom(32)  # Запомните
-    key = hashlib.pbkdf2_hmac(
-        'sha256',  # Используемый алгоритм хеширования
-        password.encode('utf-8'),  # Конвертируется пароль в байты
-        salt,  # Предоставляется соль
-        100000)  # Рекомендуется использовать хотя бы 100000 итераций SHA-256
+    md5_hash = hashlib.new('md5')
+    md5_hash.update((login+password).encode())
+    key=md5_hash.hexdigest()
     return key
 
 
 def check_password(login, password):
     hash_input = get_hash_password(login, password)
-    # Ищем в БД запись о пользователе с таким хешем
-    if 1==1: # Если нашли запись - все ок, пользователь с таким паролем существует
-        return True
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).first()
+    if user is not None:
+        print(user.name, user.hashed_password)
+        if hash_input==user.hashed_password: # Если нашли запись - все ок, пользователь с таким паролем существует
+            print('ok')
+            return True
     return False
 
 if __name__=="__main__":
