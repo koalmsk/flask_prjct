@@ -14,7 +14,7 @@ def get_hash_password(login, password):
 def check_password(login, password):
     hash_input = get_hash_password(login, password)
     db_sess = db_session.create_session()
-    user = db_sess.query(User).first()
+    user = db_sess.query(User).filter(User.hashed_password == hash_input).first()
     if user is not None:
         print(user.name, user.hashed_password)
         if hash_input==user.hashed_password: # Если нашли запись - все ок, пользователь с таким паролем существует
