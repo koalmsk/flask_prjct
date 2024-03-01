@@ -18,4 +18,4 @@ class User(SqlAlchemyBase):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
 
-    news = orm.relationship("News", back_populates='user')
+    right_rel = orm.relationship("UserRights", back_populates='user_rel')

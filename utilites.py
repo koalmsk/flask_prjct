@@ -16,7 +16,7 @@ def get_hash_password(login, password):
 
 def check_password(login, password):
     hash_input = get_hash_password(login, password)
-    # Ищем в БД запись о пользоватлее с таким хешем
+    # Ищем в БД запись о пользователе с таким хешем
     if 1==1: # Если нашли запись - все ок, пользователь с таким паролем существует
         return True
     return False
