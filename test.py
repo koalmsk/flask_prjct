@@ -8,9 +8,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
 def main():
-    db_session.global_init("db/mars.db")
-    create_user('superLogin', '123', name='Иван')
-    check_password('superLogin', '123')
+    db_session.global_init("db/main.db")
     app.run()
 
 
