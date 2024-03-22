@@ -40,3 +40,7 @@ def get_recipe():
     return recipe
 
 # добавть поиск по ингридиентам и порциям по умолчанию Naun
+# добавить post resipe
+# создать табличку для комментов к рецепту
+# фк рецепт, фк юзкр, текст коммента
+# метод comments(recipe.id) и класс RecipeCommentResourse
