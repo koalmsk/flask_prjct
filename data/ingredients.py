@@ -13,4 +13,4 @@ class Ingredients(SqlAlchemyBase):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.Text, default="Тут пусто")
 
-    link_rel = orm.relationship("RecipesToIngredients", back_populates='ingredients_rel')
+    # link_rel = orm.relationship("RecipesToIngredients", back_populates='ingredients_rel')
