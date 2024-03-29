@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_restful import abort, Api, Resource
+from flask_restful import reqparse, abort, Api, Resource
 
 from data import db_session
 from data.recipes import Recipes
@@ -21,7 +21,12 @@ def abort_if_recipes_not_found():
 class RecipesResource(Resource):
     def get(self):
         # abort_if_recipes_not_found()
-        recipes = get_recipe()
+        parser = reqparse.RequestParser()
+        parser.add_argument('limit', required=True)
+        parser.add_argument('query', required=False)
+        args = parser.parse_args()
+        recipes = get_recipe(args["limit"], args["query"])
+
         return jsonify({'recipes': recipes.to_dict(
             only=('title', 'servings', 'instructions'))})
 
