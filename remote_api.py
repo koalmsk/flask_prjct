@@ -55,6 +55,8 @@ def get_meals(limit=5):
             slovar['id'] = item['id']
             slovar['foto'] = item['image']
             slovar['title'] = item['title']
+                # ingridients [{name,quantity}]
+                # text
             spisok1.append(slovar)
         return spisok1
 
