@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_restful import abort, Api, Resource, reqparse
+from flask_restful import abort, Api, Resource
 
 from data import db_session
 from data.recipes import Recipes

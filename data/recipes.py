@@ -13,6 +13,7 @@ class Recipes(SqlAlchemyBase, UserMixin, SerializerMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     servings = sqlalchemy.Column(sqlalchemy.Integer, default=1)
     instructions = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
 
