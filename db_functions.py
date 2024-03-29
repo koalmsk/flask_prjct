@@ -34,13 +34,19 @@ def create_recipes(title, ingredients, servings, instructions):
     print('Создан рецепт:', title)
 
 
-def get_recipe():
+def get_recipe(limit: int=1):
     db_sess = db_session.create_session()
-    recipe = db_sess.query(Recipes).first()
+    recipe = db_sess.query(Recipes).limit(limit).all()
     return recipe
+
+
 
 # добавть поиск по ингридиентам и порциям по умолчанию Naun
 # добавить post resipe
 # создать табличку для комментов к рецепту
 # фк рецепт, фк юзкр, текст коммента
 # метод comments(recipe.id) и класс RecipeCommentResourse
+if __name__ == "__main__":
+    db_session.global_init("db/main.db")
+    
+    print(get_recipe(3))
