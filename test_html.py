@@ -1,11 +1,13 @@
 import flask 
-
+import remote_api
 app = flask.Flask(__name__)
 
 
 @app.route("/")
 def test():
-    return flask.render_template("single.html")
+    data = remote_api.get_recipe("pancake")
+    
+    return flask.render_template("single.html", **data[0])
 
 
 
