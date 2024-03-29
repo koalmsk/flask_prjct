@@ -34,7 +34,7 @@ def create_recipes(title, ingredients, servings, instructions):
     print('Создан рецепт:', title)
 
 
-def get_recipe(limit: int=1):
+def get_recipe(limit: int=1, query=None):
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).limit(limit).all()
     return recipe

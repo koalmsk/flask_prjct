@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_restful import abort, Api, Resource
+from flask_restful import abort, Api, Resource, reqparse
 
 from data import db_session
 from data.recipes import Recipes
@@ -27,8 +27,13 @@ class RecipesResource(Resource):
         args = parser.parse_args()
         recipes = get_recipe(args["limit"], args["query"])
 
-        return jsonify({'recipes': recipes.to_dict(
-            only=('title', 'servings', 'instructions'))})
+        dict_recipes = []
+        for item in recipes:
+            dict_recipes.append(item.to_dict(
+                only=('title', 'servings', 'instructions')))
+
+
+        return jsonify({'recipes': dict_recipes})
 
 
 # для списка объектов
