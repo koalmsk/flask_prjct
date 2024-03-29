@@ -19,8 +19,13 @@ def index():
         with open("data_file.json", "r") as read_file:
             data = json.load(read_file)
             dish_name = data[0]["title"]
+<<<<<<< HEAD
             ingredients = data[0]["ingredients"].split(";")
             instructions = data[0]["instructions"].split(";")
+=======
+            ingredients = data[0]["ingredients"].split("|")
+            instructions = data[0]["instructions"].split("|")
+>>>>>>> шаблон-databse
 
             return render_template('found_dish.html', dish_name=dish_name, ingredients=ingredients, instructions=instructions)
 
