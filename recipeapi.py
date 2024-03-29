@@ -38,4 +38,5 @@ class RecipesResource(Resource):
 
 # для списка объектов
 api.add_resource(RecipesResource, '/api/recipes')
+<<<<<<< HEAD
 app.run()
