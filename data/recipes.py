@@ -15,6 +15,7 @@ class Recipes(SqlAlchemyBase, UserMixin, SerializerMixin):
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     servings = sqlalchemy.Column(sqlalchemy.Integer, default=1)
-    instructions = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
+    instructions = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    likes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     # link_rel = orm.relationship("Recipes_to_Ingredients", back_populates='recipes_rel')

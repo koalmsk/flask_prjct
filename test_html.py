@@ -5,7 +5,7 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def test():
-    data = remote_api.get_recipe("pancake")
+    data = remote_api.get_recipe("pasts")
     
     return flask.render_template("single.html", **data[0])
 
