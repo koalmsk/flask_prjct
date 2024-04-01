@@ -11,6 +11,12 @@ from utilites import check_password
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+# @app.route("/")
+# def test():
+#     data = remote_api.get_recipe("pasts")
+    
+#     return flask.render_template("single.html", **data[0])
+
 @app.route("/")
 def test():
     data = remote_api.get_meals(limit=1)
@@ -38,6 +44,12 @@ def registration():
         create_user(form1.email.data, form1.password.data, form1.name.data)
         return redirect('/login')
     return render_template('registration.html', title='Registration', form=form1)
+    # data = remote_api.get_recipe("pasts")
+    
+    return flask.render_template("contact.html")
+
+
+
 if __name__ == "__main__":
     db_session.global_init("db/blogs.db")
     app.run(port=4000)
