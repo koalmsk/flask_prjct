@@ -36,6 +36,22 @@ class RecipesResource(Resource):
         return jsonify({'recipes': dict_recipes})
 
 
+class SinglRecipeResource(Resource):
+    def get(self, id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', required=True, type=int, location='args')
+        args = parser.parse_args()
+        recipes = get_recipe(args["id"])
+
+        dict_recipes = []
+        for item in recipes:
+            dict_recipes.append(item.to_dict(
+                only=('title', 'servings', 'instructions')))
+
+
+        return jsonify({'recipes': dict_recipes})
+
 # для списка объектов
 api.add_resource(RecipesResource, '/api/recipes')
+api.add_resource(RecipesResource, '/api/recipes/<id>')
 app.run()
