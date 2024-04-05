@@ -2,6 +2,7 @@ import flask
 from flask import redirect, render_template
 
 import remote_api
+from data import db_session
 from db_functions import create_user
 from login import LoginForm
 from registration import RegisterForm
@@ -29,7 +30,7 @@ def login():
         print(form.username.data)
         print(form.password.data)
         if check_password(form.username.data, form.password.data):
-            return redirect("/about")
+            return redirect("/")
         return 'not now, not yet'
     return render_template('login.html', title='Авторизация', form=form)
 
@@ -40,7 +41,7 @@ def registration():
     if form1.validate_on_submit():
         if form1.password.data != form1.password_again.data:
             return 'LOL'
-        create_user(form1.email.data, form1.password.data, form1.name.data, form1.about.data)
+        create_user(form1.email.data, form1.password.data, form1.name.data)
         return redirect('/login')
     return render_template('contact.html', title='Registration', form=form1)
 
@@ -50,4 +51,5 @@ def registration():
 
 
 if __name__ == "__main__":
+    db_session.global_init("db/blogs.db")
     app.run(port=4000)
