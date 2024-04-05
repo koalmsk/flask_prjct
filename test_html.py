@@ -42,10 +42,10 @@ def registration():
             return 'LOL'
         create_user(form1.email.data, form1.password.data, form1.name.data, form1.about.data)
         return redirect('/login')
-    return render_template('registration.html', title='Registration', form=form1)
+    return render_template('contact.html', title='Registration', form=form1)
+
     # data = remote_api.get_recipe("pasts")
     
-    return flask.render_template("contact.html")
 
 
 
