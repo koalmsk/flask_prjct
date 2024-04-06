@@ -55,11 +55,40 @@ def get_meals(limit=5):
             slovar['id'] = item['id']
             slovar['foto'] = item['image']
             slovar['title'] = item['title']
-                # ingridients [{name,quantity}]
-                # text
+            # ingridients [{name,quantity}]
+            # text
             spisok1.append(slovar)
         return spisok1
 
 
-print(get_nutritients('cheese'))
-print(get_meals())
+def get_recept(id):
+    param = id
+    recipe_info = f'https://api.spoonacular.com/recipes/{param}/information?includeNutrition=false&apiKey=8a7f512606ab41ee8f03c29701dfc065'
+    response3 = requests.get(recipe_info)
+    if response3:
+        json_response3 = response3.json()
+        sumarise_info = json_response3['summary']
+        image = json_response3['image']
+        instructions = json_response3['instructions']
+        title = json_response3['title']
+        steps = []
+        county = 1
+        if json_response3['analyzedInstructions']:
+            for i in json_response3["analyzedInstructions"][0]['steps']:
+                textinfo = i['step']
+                steps.append({'number': county,
+                              'content': textinfo})
+                county += 1
+            return [steps, instructions, image, sumarise_info, title]
+        else:
+            return [[{"number": "no number", 'content': 'No content'}], instructions, image, sumarise_info, title]
+        # print(steps)
+        # print(instructions)
+        # print(image)
+        # print(sumarise_info)
+
+
+# print(get_nutritients('cheese'))
+# print(get_meals())
+# print(get_recept(653785))
+print(get_meals)

@@ -11,17 +11,30 @@ from utilites import check_password
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+
 # @app.route("/")
 # def test():
 #     data = remote_api.get_recipe("pasts")
-    
+
 #     return flask.render_template("single.html", **data[0])
 
-@app.route("/")
-def test():
-    data = remote_api.get_meals(limit=1)
-    print(data)
-    return flask.render_template("single.html", title=data[0]['title'], instruction=data[0]['id'])
+@app.route('/')
+def main():
+    spisok = remote_api.get_meals()
+    spisok2 = [i['foto'] for i in spisok]
+    spisok3 = [i['title'] for i in spisok]
+    spisok4 = [i['id'] for i in spisok]
+    return flask.render_template('index.html', firstimg=spisok2[0], secondimg=spisok2[1], thirdimg=spisok2[2],
+                                 fourthimg=spisok2[3], fifthimg=spisok2[4], title1=spisok3[0], title2=spisok3[1],
+                                 title3=spisok3[2], title4=spisok3[3], title5=spisok3[4], id1=spisok4[0],
+                                 id2=spisok4[1], id3=spisok4[2], id4=spisok4[3], id5=spisok4[4])
+
+
+@app.route("/recipe/<id>")
+def test(id):
+    data = remote_api.get_recept(id)
+    return flask.render_template("single.html", title=data[4], instructions=data[1], steps=data[0], image=data[2])
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,6 +47,7 @@ def login():
         return 'not now, not yet'
     return render_template('login.html', title='Авторизация', form=form)
 
+
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     form1 = RegisterForm()
@@ -45,9 +59,8 @@ def registration():
         return redirect('/login')
     return render_template('registration.html', title='Registration', form=form1)
     # data = remote_api.get_recipe("pasts")
-    
-    return flask.render_template("contact.html")
 
+    return flask.render_template("contact.html")
 
 
 if __name__ == "__main__":
