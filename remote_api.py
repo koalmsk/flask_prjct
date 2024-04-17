@@ -1,4 +1,5 @@
 import requests
+import random
 
 
 def get_nutritients(query):
@@ -86,7 +87,19 @@ def get_recept(id):
         # print(instructions)
         # print(image)
         # print(sumarise_info)
-
+def get_filtered_food(min_carbs, max_carbs, min_protein, max_protein, min_calories, max_calories, min_fat, max_fat):
+    recipe_chr = f'https://api.spoonacular.com/recipes/findByNutrients?minCarbs={min_carbs}&maxCarbs={max_carbs}&minProtein={min_protein}&maxProtein={max_protein}&minCalories={min_calories}&maxCalories={max_calories}&minFat={min_fat}&maxFat={max_fat}&apiKey=8a7f512606ab41ee8f03c29701dfc065'
+    response4 = requests.get(recipe_chr)
+    if response4:
+        print('aboba')
+        json_response4 = response4.json()
+        dlina = len(json_response4)
+        if dlina == 0:
+            return 0
+        i = random.choice(range(dlina))
+        print(json_response4)
+        number = json_response4[i]['id']
+        return number
 
 # print(get_nutritients('cheese'))
 # print(get_meals())

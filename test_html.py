@@ -5,6 +5,7 @@ import remote_api
 from data import db_session
 from db_functions import create_user
 from login import LoginForm
+from making_form import CreterionForm
 from registration import RegisterForm
 from utilites import check_password
 
@@ -19,8 +20,10 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 #     return flask.render_template("single.html", **data[0])
 
 @app.route('/')
+@app.route('/index')
 def main():
     spisok = remote_api.get_meals()
+    print(spisok)
     spisok2 = [i['foto'] for i in spisok]
     spisok3 = [i['title'] for i in spisok]
     spisok4 = [i['id'] for i in spisok]
@@ -61,6 +64,18 @@ def registration():
     # data = remote_api.get_recipe("pasts")
 
     return flask.render_template("contact.html")
+
+@app.route('/food_filter', methods=['GET', 'POST'])
+def food_filter():
+    form3 = CreterionForm()
+    if form3.validate():
+        number = remote_api.get_filtered_food(form3.min_carbs.data, form3.max_carbs.data, form3.min_protein.data, form3.max_protein.data, form3.min_calories.data, form3.max_calories.data, form3.min_fat.data, form3.max_fat.data)
+        if number == 0:
+            return render_template('foodcretecion.html', title='Food filter', form=form3)
+        else:
+            data1 = remote_api.get_recept(number)
+            return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0], image=data1[2])
+    return render_template('foodcretecion.html', title='Food filter', form=form3)
 
 
 if __name__ == "__main__":
