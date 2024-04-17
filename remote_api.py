@@ -1,4 +1,5 @@
 import requests
+import random
 
 
 def get_nutritients(query):
@@ -55,11 +56,52 @@ def get_meals(limit=5):
             slovar['id'] = item['id']
             slovar['foto'] = item['image']
             slovar['title'] = item['title']
-                # ingridients [{name,quantity}]
-                # text
+            # ingridients [{name,quantity}]
+            # text
             spisok1.append(slovar)
         return spisok1
 
 
-print(get_nutritients('cheese'))
-print(get_meals())
+def get_recept(id):
+    param = id
+    recipe_info = f'https://api.spoonacular.com/recipes/{param}/information?includeNutrition=false&apiKey=8a7f512606ab41ee8f03c29701dfc065'
+    response3 = requests.get(recipe_info)
+    if response3:
+        json_response3 = response3.json()
+        sumarise_info = json_response3['summary']
+        image = json_response3['image']
+        instructions = json_response3['instructions']
+        title = json_response3['title']
+        steps = []
+        county = 1
+        if json_response3['analyzedInstructions']:
+            for i in json_response3["analyzedInstructions"][0]['steps']:
+                textinfo = i['step']
+                steps.append({'number': county,
+                              'content': textinfo})
+                county += 1
+            return [steps, instructions, image, sumarise_info, title]
+        else:
+            return [[{"number": "no number", 'content': 'No content'}], instructions, image, sumarise_info, title]
+        # print(steps)
+        # print(instructions)
+        # print(image)
+        # print(sumarise_info)
+def get_filtered_food(min_carbs, max_carbs, min_protein, max_protein, min_calories, max_calories, min_fat, max_fat):
+    recipe_chr = f'https://api.spoonacular.com/recipes/findByNutrients?minCarbs={min_carbs}&maxCarbs={max_carbs}&minProtein={min_protein}&maxProtein={max_protein}&minCalories={min_calories}&maxCalories={max_calories}&minFat={min_fat}&maxFat={max_fat}&apiKey=8a7f512606ab41ee8f03c29701dfc065'
+    response4 = requests.get(recipe_chr)
+    if response4:
+        print('aboba')
+        json_response4 = response4.json()
+        dlina = len(json_response4)
+        if dlina == 0:
+            return 0
+        i = random.choice(range(dlina))
+        print(json_response4)
+        number = json_response4[i]['id']
+        return number
+
+# print(get_nutritients('cheese'))
+# print(get_meals())
+# print(get_recept(653785))
+print(get_meals)
