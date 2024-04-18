@@ -94,12 +94,7 @@ def get_filtered_food(min_carbs, max_carbs, min_protein, max_protein, min_calori
         print('aboba')
         json_response4 = response4.json()
         dlina = len(json_response4)
-        if dlina == 0:
-            return 0
-        i = random.choice(range(dlina))
-        print(json_response4)
-        number = json_response4[i]['id']
-        return number
+        return json_response4
 
 # print(get_nutritients('cheese'))
 # print(get_meals())

@@ -1,5 +1,6 @@
 import flask
 from flask import redirect, render_template
+import random
 
 import remote_api
 from data import db_session
@@ -69,12 +70,14 @@ def registration():
 def food_filter():
     form3 = CreterionForm()
     if form3.validate():
-        number = remote_api.get_filtered_food(form3.min_carbs.data, form3.max_carbs.data, form3.min_protein.data, form3.max_protein.data, form3.min_calories.data, form3.max_calories.data, form3.min_fat.data, form3.max_fat.data)
-        if number == 0:
+        listik = remote_api.get_filtered_food(form3.min_carbs.data, form3.max_carbs.data, form3.min_protein.data, form3.max_protein.data, form3.min_calories.data, form3.max_calories.data, form3.min_fat.data, form3.max_fat.data)
+        dlina = len(listik)
+        number = random.choice(range(dlina))
+        if dlina == 0:
             return render_template('foodcretecion.html', title='Food filter', form=form3)
         else:
             data1 = remote_api.get_recept(number)
-            return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0], image=data1[2])
+            return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0], image=data1[2], spisok1=listik)
     return render_template('foodcretecion.html', title='Food filter', form=form3)
 
 

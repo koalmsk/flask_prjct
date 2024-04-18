@@ -41,10 +41,10 @@
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
                             <div class="login">
-                                <a href="register.html">Sing in</a>
+                                <a href="/login">Sing in</a>
                             </div>
                             <div class="register">
-                                <a href="register.html">Sing up</a>
+                                <a href="/registration">Sing up</a>
                             </div>
                         </div>
                         <!-- Search Button Area -->
@@ -419,12 +419,12 @@
                                 <h6>Populer Post</h6>
                             </div>
                             <!-- Single Popular Post -->
-                            {% for item in range(5) %}
+                            {% for item in spisok1 %}
                             <div class="single-populer-post d-flex">
-                                <img src="img/sidebar-img/1.jpg" alt="">
+                                <img src={{item['foto']}} alt="">
                                 <div class="post-content">
-                                    <a href="/recipe/639722">
-                                        <h6>Top Wineries To Visit In England</h6>
+                                    <a href="/recipe/{{item['id']}}">
+                                        <h6>{{item['title']}}</h6>
                                     </a>
                                 </div>
                             </div>
