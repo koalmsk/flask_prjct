@@ -77,7 +77,11 @@ def food_filter():
             return render_template('foodcretecion.html', title='Food filter', form=form3)
         else:
             data1 = remote_api.get_recept(number)
-            return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0], image=data1[2], spisok1=listik)
+            if dlina > 5:
+                return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0],
+                                             image=data1[2], spisok1=listik[:5])
+            else:
+                return flask.render_template("single.html", title=data1[4], instructions=data1[1], steps=data1[0], image=data1[2], spisok1=listik)
     return render_template('foodcretecion.html', title='Food filter', form=form3)
 
 
